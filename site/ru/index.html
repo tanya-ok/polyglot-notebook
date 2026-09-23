@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MD A6 — варианты оформления языковой тетради</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --desk:#dfe3e6; --desk-2:#cfd5d9; --text:#1d2327; --muted:#56616a; --line:#b9c1c7;
+  --paper:#f6efdf; --paper-edge:#e6dcc4; --ink:#1f1f1f; --grid:rgba(60,70,80,.07);
+  --PL:#D55E00; --EN:#0072B2; --BE:#009E73; --LA:#CC79A7; --ES:#E69F00; --EU:#56B4E9; --NEW:#7f7f7f; --SUM:#1f1f1f;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --desk:#20262b; --desk-2:#2a3137; --text:#e8ecef; --muted:#a3aeb7; --line:#3d464d; }
+}
+:root[data-theme="dark"]{ --desk:#20262b; --desk-2:#2a3137; --text:#e8ecef; --muted:#a3aeb7; --line:#3d464d; }
+html{ scroll-padding-top:env(safe-area-inset-top,0px); }
+*,*::before,*::after{ box-sizing:inherit; }
+body{ margin:0; background:var(--desk); color:var(--text); font-family:Figtree, "Segoe UI", system-ui, sans-serif; line-height:1.5; }
+.wrap{ max-width:1180px; margin:0 auto; padding:28px 20px 60px; }
+h1{ font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.15; margin:0 0 8px; font-weight:700; letter-spacing:-.01em; }
+h2{ font-size:1.25rem; margin:48px 0 6px; }
+p.lead{ max-width:68ch; color:var(--muted); margin:0 0 20px; }
+p.note{ max-width:70ch; color:var(--muted); margin:6px 0 16px; font-size:.95rem; }
+
+/* theme switcher */
+.switch{ position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--desk); padding:10px 0; display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--line); }
+.switch button{ font:inherit; font-size:.95rem; padding:8px 14px; border-radius:6px; border:1px solid var(--line); background:var(--desk-2); color:var(--text); cursor:pointer; }
+.switch button[aria-pressed="true"]{ background:var(--text); color:var(--desk); border-color:var(--text); }
+.switch button:focus-visible, .strat button:focus-visible{ outline:3px solid var(--EN); outline-offset:2px; }
+.theme-desc{ margin:12px 0 0; max-width:75ch; color:var(--muted); min-height:3em; }
+
+/* allocation bar */
+.strat{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+.strat button{ font:inherit; padding:6px 12px; border-radius:6px; border:1px solid var(--line); background:var(--desk-2); color:var(--text); cursor:pointer; }
+.strat button[aria-pressed="true"]{ background:var(--text); color:var(--desk); }
+.barbox{ overflow-x:auto; }
+.bar{ display:flex; height:54px; min-width:760px; border-radius:4px; overflow:hidden; border:1px solid var(--line); }
+.seg{ display:flex; align-items:flex-end; padding:4px 5px; font-size:.72rem; line-height:1.15; color:#fff; border-right:1px solid rgba(255,255,255,.5); overflow:hidden; }
+.seg.light{ color:#1d2327; }
+.legend-row{ display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; font-size:.9rem; color:var(--muted); }
+.legend-row span b{ color:var(--text); font-weight:600; }
+
+/* spreads */
+.spread-box{ overflow-x:auto; padding:10px 0 18px; }
+.spread{ display:flex; width:max-content; margin:0 auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
+.page{ position:relative; width:300px; aspect-ratio:105/148; background:var(--paper); color:var(--ink);
+  font-family:Kalam, "Comic Neue", "Segoe Print", cursive; font-size:12.5px; line-height:1.35;
+  padding:16px 18px 14px 18px; overflow:hidden; }
+.page.single{ box-shadow:0 10px 18px rgba(0,0,0,.18); margin:0 auto; }
+.spread .page:first-child{ border-radius:3px 0 0 3px; background:linear-gradient(to left, rgba(0,0,0,.08), transparent 16px), var(--paper); padding-right:24px; }
+.spread .page:last-child{ border-radius:0 3px 3px 0; background:linear-gradient(to right, rgba(0,0,0,.10), transparent 16px), var(--paper); padding-left:24px; }
+.page.gridded{ background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size:14px 14px; }
+.hdr{ display:flex; align-items:baseline; gap:6px; padding-bottom:3px; margin-bottom:7px; border-bottom:1.5px solid var(--hdrLine); font-size:13px; }
+.hdr .t{ flex:1; font-weight:700; }
+.hdr .n{ font-size:11px; opacity:.75; }
+.code{ font-weight:700; color:var(--codeColor); padding:0 3px; border:var(--codeBorder); border-radius:var(--codeRadius); transform:var(--codeRotate); display:inline-block; }
+.end{ color:var(--endColor); font-weight:var(--endWeight); }
+.ex{ color:var(--exColor); font-style:italic; }
+.hl{ background:var(--hlBg); }
+.sym{ display:inline-block; width:1.2em; text-align:center; }
+table.t{ width:100%; border-collapse:collapse; font-size:11.5px; }
+table.t th, table.t td{ padding:1.5px 3px; text-align:left; vertical-align:top; border-bottom:1px solid var(--tblLine); }
+table.t th{ font-weight:700; }
+.small{ font-size:10.5px; opacity:.85; }
+.foot{ position:absolute; left:18px; right:18px; bottom:10px; font-size:10.5px; border-top:1px dashed rgba(0,0,0,.25); padding-top:3px; opacity:.8; }
+[data-lang]{ --L:var(--SUM); }
+[data-lang="PL"]{ --L:var(--PL); } [data-lang="EN"]{ --L:var(--EN); } [data-lang="BE"]{ --L:var(--BE); }
+[data-lang="LA"]{ --L:var(--LA); } [data-lang="ES"]{ --L:var(--ES); } [data-lang="EU"]{ --L:var(--EU); } [data-lang="NEW"]{ --L:var(--NEW); }
+
+/* edge tabs */
+.tabs{ position:absolute; top:0; right:0; bottom:0; width:10px; }
+.tab{ position:absolute; right:0; width:10px; border-radius:2px 0 0 2px; background:var(--tabColor); }
+
+/* THEMES */
+body.t-okabe{ --codeColor:var(--L); --codeBorder:0; --codeRadius:0; --codeRotate:none; --hdrLine:var(--L);
+  --endColor:var(--L); --endWeight:700; --exColor:#444; --hlBg:transparent; --tblLine:rgba(0,0,0,.12); --tabColor:var(--L); }
+body.t-minimal{ --codeColor:var(--ink); --codeBorder:1px solid var(--ink); --codeRadius:2px; --codeRotate:none; --hdrLine:rgba(0,0,0,.45);
+  --endColor:var(--ink); --endWeight:700; --exColor:#555; --hlBg:transparent; --tblLine:rgba(0,0,0,.10); --tabColor:#5b5b5b; }
+body.t-minimal .hdr{ border-bottom-width:1px; }
+body.t-func{ --codeColor:var(--ink); --codeBorder:0; --codeRadius:0; --codeRotate:none; --hdrLine:var(--ink);
+  --endColor:#2458a6; --endWeight:700; --exColor:#b83a78; --hlBg:rgba(255,221,87,.55); --tblLine:rgba(0,0,0,.12); --tabColor:var(--L); }
+body.t-stamp{ --codeColor:#7a2e22; --codeBorder:1.5px solid #7a2e22; --codeRadius:50%; --codeRotate:rotate(-6deg); --hdrLine:#6b4a2b;
+  --endColor:#6b4a2b; --endWeight:700; --exColor:#3d3d3d; --hlBg:transparent; --tblLine:rgba(107,74,43,.25); --tabColor:#8b6a45; }
+body.t-stamp .page{ font-family:"Special Elite", "Courier New", monospace; font-size:11.2px; }
+body.t-stamp .hdr{ border-bottom:3px double #6b4a2b; }
+body.t-stamp .code{ padding:1px 4px; font-size:10px; }
+body.t-func .code{ text-decoration:underline; text-decoration-color:var(--L); text-decoration-thickness:3px; text-underline-offset:2px; }
+
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; align-items:start; }
+.cap{ font-size:.9rem; color:var(--muted); text-align:center; margin-top:10px; }
+.swatches{ display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; }
+.sw{ display:flex; align-items:center; gap:8px; font-size:.92rem; }
+.sw i{ width:22px; height:22px; border-radius:4px; display:inline-block; border:1px solid rgba(0,0,0,.15); }
+@media (prefers-reduced-motion: no-preference){ .page{ transition:font-family .2s; } }
+</style>
+</head>
+<body class="t-okabe">
+<div class="wrap">
+  <h1>Языковая тетрадь MD A6: варианты оформления</h1>
+<p class="note"><a href="../">English version</a></p>
+  <p class="lead">Макеты страниц в натуральной пропорции A6 (105 × 148 мм), 176 страниц: EN, PL, ES, EU, BE, резерв под новый язык и немного латыни. Переключатель стиля меняет оформление всех разворотов сразу — так удобнее сравнить.</p>
+
+  <div class="switch" role="group" aria-label="Стиль оформления">
+    <button data-theme-btn="t-okabe" aria-pressed="true">Цвет = язык</button>
+    <button data-theme-btn="t-minimal" aria-pressed="false">Минимал: только чернила</button>
+    <button data-theme-btn="t-func" aria-pressed="false">Цвет = функция</button>
+    <button data-theme-btn="t-stamp" aria-pressed="false">Архив и штампы</button>
+  </div>
+  <p class="theme-desc" id="themeDesc"></p>
+
+  <h2>Разбивка 176 страниц</h2>
+  <p class="note">Порядок в тетради: EN → PL → ES → EU → BE → место под новый язык → LA → общие развороты → растущая часть → списки с конца. Наведите на участок, чтобы увидеть номера страниц.</p>
+  <div class="barbox"><div class="bar" id="bar"></div></div>
+  <div class="legend-row" id="stratText"></div>
+  <div class="barbox" style="margin-top:14px"><table class="t" id="allocTable" style="font-family:inherit;font-size:.95rem;max-width:620px"></table></div>
+
+  <h2>Цвета языков (палитра Okabe–Ito)</h2>
+  <p class="note">Различимы при распространённых формах нарушения цветового зрения. Жёлтый исключён: на кремовой бумаге тонкая линия почти не видна.</p>
+  <div class="swatches">
+    <span class="sw"><i style="background:#0072B2"></i>EN — синий</span>
+    <span class="sw"><i style="background:#D55E00"></i>PL — вермилион</span>
+    <span class="sw"><i style="background:#E69F00"></i>ES — оранжевый</span>
+    <span class="sw"><i style="background:#56B4E9"></i>EU — голубой</span>
+    <span class="sw"><i style="background:#009E73"></i>BE — сине-зелёный</span>
+    <span class="sw"><i style="background:transparent;border:2px dashed #7f7f7f"></i>+1 — серый пунктир, пока язык не выбран</span>
+    <span class="sw"><i style="background:#CC79A7"></i>LA — пурпурный</span>
+    <span class="sw"><i style="background:#1f1f1f"></i>∑ общее — чёрный</span>
+  </div>
+
+  <h2>Индекс и легенда, стр. 2–3 и 6</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Индекс</span><span class="n">· 2 ·</span></div>
+      <table class="t">
+        <tr><th>код</th><th>тема</th><th>стр</th></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>tense map</td><td>8–9</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>articles</td><td>10</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>meeting phrases</td><td>18</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>7 przypadków</td><td>38–39</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>przyimki + przyp.</td><td>40</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>liczebniki <span class="hl">★</span></td><td>42</td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>ser / estar</td><td>53</td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>alfabetoa</td><td>68</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>лацінка</td><td>83</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>Ў / Ŭ</td><td>84</td></tr>
+        <tr data-lang="SUM"><td><span class="code">∑</span></td><td>«быть» ×6</td><td>112</td></tr>
+      </table>
+      <div class="foot">● = есть вклейка · +1: 93–107 · ← с конца: 156–176</div>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Легенда</span><span class="n">· 6 ·</span></div>
+      <table class="t">
+        <tr><td class="sym">▸</td><td>правило</td><td class="sym">≠</td><td>ложный друг</td></tr>
+        <tr><td class="sym">⚠</td><td>исключение</td><td class="sym">≈</td><td>идиома</td></tr>
+        <tr><td class="sym">›</td><td><span class="ex">пример</span></td><td class="sym">★</td><td>важно</td></tr>
+        <tr><td class="sym">↺</td><td>моя ошибка</td><td class="sym">♡</td><td>для души</td></tr>
+        <tr><td class="sym">→</td><td>см. стр.</td><td class="sym">?</td><td>проверить</td></tr>
+      </table>
+      <div style="margin-top:10px">
+        <div data-lang="EN"><span class="code">EN</span> английский</div>
+        <div data-lang="PL"><span class="code">PL</span> польский</div>
+        <div data-lang="ES"><span class="code">ES</span> español</div>
+        <div data-lang="EU"><span class="code">EU</span> euskara</div>
+        <div data-lang="BE"><span class="code">BE</span> беларуская / biełaruskaja</div>
+        <div data-lang="NEW"><span class="code">+1</span> ______ (резерв)</div>
+        <div data-lang="LA"><span class="code">LA</span> latina</div>
+      </div>
+      <p class="small" style="margin-top:10px">Шапка: [код] │ тема │ флаги │ · стр ·<br>Окончания — <span class="end">так</span>, примеры — <span class="ex">так</span>.</p>
+    </div>
+  </div></div>
+
+  <h2>Польские падежи поперёк разворота, стр. 38–39</h2>
+  <p class="note">Корешок проходит по смысловому шву «ед. ч. | мн. ч.» — таблица шириной 210 мм вместо 105.</p>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="PL">
+      <div class="hdr"><span class="code">PL</span><span class="t">Przypadki — l. poj.</span><span class="n">★ · 38 ·</span></div>
+      <table class="t">
+        <tr><th></th><th>pytanie</th><th>m</th><th>f</th><th>n</th></tr>
+        <tr><td>M</td><td>kto? co?</td><td>—</td><td class="end">-a</td><td class="end">-o/-e</td></tr>
+        <tr><td>D</td><td>kogo? czego?</td><td class="end">-a/-u</td><td class="end">-y/-i</td><td class="end">-a</td></tr>
+        <tr><td>C</td><td>komu? czemu?</td><td class="end">-owi/-u</td><td class="end">-e/-i</td><td class="end">-u</td></tr>
+        <tr><td>B</td><td>kogo? co?</td><td>=M/=D*</td><td class="end">-ę</td><td>=M</td></tr>
+        <tr><td>N</td><td>kim? czym?</td><td class="end">-em</td><td class="end">-ą</td><td class="end">-em</td></tr>
+        <tr><td>Ms</td><td>o kim? o czym?</td><td class="end">-e/-u</td><td class="end">-e/-i</td><td class="end">-e/-u</td></tr>
+        <tr><td>W</td><td>—</td><td class="end">-e/-u</td><td class="end">-o/-i</td><td>=M</td></tr>
+      </table>
+      <p class="small">* одушевл. m: B = D</p>
+      <p><span class="sym">›</span><span class="ex">Piszę długopis<span class="end">em</span>.</span></p>
+      <div class="foot">⚠ чередования: ręka → ręce → 44</div>
+    </div>
+    <div class="page" data-lang="PL">
+      <div class="hdr"><span class="code">PL</span><span class="t">Przypadki — l. mn.</span><span class="n">· 39 ·</span></div>
+      <table class="t">
+        <tr><th></th><th>m-os</th><th>nie-m-os</th><th>после</th></tr>
+        <tr><td>M</td><td class="end">-i/-y</td><td class="end">-y/-i/-e</td><td>подлежащее</td></tr>
+        <tr><td>D</td><td class="end">-ów/-y</td><td class="end">-ów/∅/-i</td><td>bez, do, <span class="hl">nie ma</span></td></tr>
+        <tr><td>C</td><td class="end">-om</td><td class="end">-om</td><td>dziękować</td></tr>
+        <tr><td>B</td><td>=D</td><td>=M</td><td>mam, widzę</td></tr>
+        <tr><td>N</td><td class="end">-ami</td><td class="end">-ami</td><td>z, jestem X</td></tr>
+        <tr><td>Ms</td><td class="end">-ach</td><td class="end">-ach</td><td>o, w, na, przy</td></tr>
+        <tr><td>W</td><td>=M</td><td>=M</td><td>обращение</td></tr>
+      </table>
+      <p><span class="sym">›</span><span class="ex">Rozmawiam z koleg<span class="end">ami</span>.</span></p>
+      <div class="foot">→ 40 предлоги · Anki: pl::przyp</div>
+    </div>
+  </div></div>
+
+  <h2>Числительные и лацинка, стр. 42 и 83</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="PL">
+        <div class="hdr"><span class="code">PL</span><span class="t">Liczebnik + rzecz.</span><span class="n">★ · 42 ·</span></div>
+        <p><b>1</b> → ед. ч.<br><span class="ex">jeden kot</span></p>
+        <p><b>2, 3, 4</b> (22–24…, но <u>не</u> 12–14) → M мн. ч.<br><span class="ex">dwa kot<span class="end">y</span> śpią</span></p>
+        <p><b>5+</b> и 12–14 → D мн. ч. + глагол ед. ч. ср. р.<br><span class="ex">pięć kot<span class="end">ów</span> spało</span></p>
+        <p><span class="sym">⚠</span><b>мужсколичные:</b><br><span class="ex">dwaj studenci = dwóch studentów</span><br><span class="ex">pięciu studentów przyszło</span></p>
+        <p class="small"><span class="sym">⚠</span> oba / obie / obaj · dwoje dzieci</p>
+        <div class="foot">↺ см. 175 · → 43</div>
+      </div>
+      <p class="cap">Дерево решений вместо таблицы — помещается на одну страницу.</p>
+    </div>
+    <div>
+      <div class="page single" data-lang="BE">
+        <div class="hdr"><span class="code">BE</span><span class="t">Лацінка ↔ кірыліца</span><span class="n">· 83 ·</span></div>
+        <table class="t">
+          <tr><td>г <span class="end">h</span></td><td>ж <span class="end">ž</span></td><td>з <span class="end">z</span></td><td>зь <span class="end">ź</span></td></tr>
+          <tr><td>й <span class="end">j</span></td><td>л <span class="end">ł</span></td><td>ль <span class="end">l</span></td><td>нь <span class="end">ń</span></td></tr>
+          <tr><td>сь <span class="end">ś</span></td><td>ў <span class="end">ŭ</span></td><td>х <span class="end">ch</span></td><td>ц <span class="end">c</span></td></tr>
+          <tr><td>ць <span class="end">ć</span></td><td>ч <span class="end">č</span></td><td>ш <span class="end">š</span></td><td>ы <span class="end">y</span></td></tr>
+        </table>
+        <p class="small" style="margin-top:6px">е/ё/ю/я: в начале, после гласной и ў → <span class="end">je/jo/ju/ja</span>; после согласной → <span class="end">ie/io/iu/ia</span></p>
+        <p style="margin:6px 0 2px"><b>Сравни с польским</b></p>
+        <table class="t">
+          <tr data-lang="BE"><td><span class="code">BE</span></td><td>č</td><td>š</td><td>ž</td><td>ł</td><td>ć ś ź ń</td></tr>
+          <tr data-lang="PL"><td><span class="code">PL</span></td><td>cz</td><td>sz</td><td>ż</td><td>ł</td><td>ć ś ź ń</td></tr>
+        </table>
+        <p><span class="sym">›</span><span class="ex">Biełaruś · Mahiloŭ</span></p>
+        <div class="foot">♡ любимые слова → 87</div>
+      </div>
+      <p class="cap">Отличия от польского — отдельной строкой внизу.</p>
+    </div>
+  </div>
+
+  <h2>Ў — у нескладовае, стр. 84</h2>
+  <p class="note">Правило тетради: каждый белорусский пример пишется дважды — кириллицей и тут же лацинкой через «/».</p>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="BE">
+        <div class="hdr"><span class="code">BE</span><span class="t">Ў — у нескладовае</span><span class="n">· 84 ·</span></div>
+        <p style="font-size:15px;margin:2px 0 6px"><b>Ў ў</b> / <b>Ŭ ŭ</b> <span class="small">U+040E · U+045E</span></p>
+        <p><span class="sym">▸</span>после гласной у без своего слога → ў<br><span class="sym">♪</span>звук как w в англ. <i>how</i></p>
+        <p><span class="sym">›</span><span class="ex">яна <span class="end">ў</span>зяла / jana <span class="end">ŭ</span>ziała</span><br>
+        <span class="sym"></span>но <span class="ex">ён <span class="end">у</span>зяў / jon <span class="end">u</span>ziaŭ</span></p>
+        <table class="t">
+          <tr><th>BE</th><th>łac.</th><th>PL</th><th>RU</th></tr>
+          <tr><td>воўк</td><td class="end">voŭk</td><td>wilk</td><td>волк</td></tr><tr><td>быў</td><td class="end">byŭ</td><td>był</td><td>был</td></tr><tr><td>праўда</td><td class="end">praŭda</td><td>prawda</td><td>правда</td></tr><tr><td>аўторак</td><td class="end">aŭtorak</td><td>wtorek</td><td>вторник</td></tr>
+        </table>
+        <div class="foot">♡ памятник букве Ў в Полоцке: помнік літары Ў / pomnik litary Ŭ — Połack</div>
+      </div>
+      <p class="cap">Пример, под ним лацинка; сравнение с польским в таблице.</p>
+    </div>
+  </div>
+
+  <h2>Сравнительный разворот «одно понятие во всех языках», стр. 112–113</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">«Быть»</span><span class="n">· 112 ·</span></div>
+      <table class="t">
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>być · <span class="end">jestem</span></td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>be · <span class="end">I am</span></td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>быць / być · часто ∅</td></tr>
+        <tr data-lang="LA"><td><span class="code">LA</span></td><td>esse · <span class="end">sum</span></td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>ser / estar · <span class="end">soy / estoy</span></td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>izan / egon · <span class="end">naiz / nago</span></td></tr>
+      </table>
+      <p style="margin-top:10px"><span class="sym">▸</span>ES и EU различают «сущность» и «состояние». Остальные — нет.</p>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Спасибо · пожалуйста · простите</span><span class="n">· 113 ·</span></div>
+      <table class="t">
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>dziękuję · proszę · przepraszam</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>thank you · please · sorry</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>дзякуй · калі ласка · прабачце<br><span class="small">dziakuj · kali łaska · prabačcie</span></td></tr>
+        <tr data-lang="LA"><td><span class="code">LA</span></td><td>grātiās · quaesō · ignōsce</td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>gracias · por favor · perdón</td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>eskerrik asko · mesedez · barkatu</td></tr>
+      </table>
+      <div class="foot">числа 1–10 → 114 · «не понимаю» → 115</div>
+    </div>
+  </div></div>
+
+  <h2>Дерево языков и ложные друзья, стр. 116 и 170</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="SUM">
+        <div class="hdr"><span class="code">∑</span><span class="t">Мои языки</span><span class="n">· 116 ·</span></div>
+        <svg viewBox="0 0 260 300" width="100%" aria-label="Дерево языков">
+          <g font-family="inherit" font-size="11" fill="currentColor" stroke="currentColor">
+            <line x1="100" y1="30" x2="40" y2="80" stroke-width="1"/>
+            <line x1="100" y1="30" x2="115" y2="80" stroke-width="1"/>
+            <line x1="100" y1="30" x2="185" y2="80" stroke-width="1"/>
+            <line x1="40" y1="95" x2="25" y2="150" stroke-width="1"/>
+            <line x1="40" y1="95" x2="75" y2="150" stroke-width="1"/>
+            <line x1="75" y1="165" x2="75" y2="205" stroke-width="1"/>
+            <line x1="115" y1="95" x2="125" y2="150" stroke-width="1"/>
+            <line x1="125" y1="165" x2="125" y2="205" stroke-width="1"/>
+            <line x1="185" y1="95" x2="190" y2="150" stroke-width="1"/>
+            <line x1="148" y1="215" x2="205" y2="260" stroke-width="1" stroke-dasharray="3 3"/>
+            <text x="100" y="24" text-anchor="middle" stroke="none" font-weight="700">индоевропейские</text>
+            <text x="40" y="92" text-anchor="middle" stroke="none">славянские</text>
+            <text x="115" y="92" text-anchor="middle" stroke="none">италийские</text>
+            <text x="185" y="92" text-anchor="middle" stroke="none">германские</text>
+          </g>
+          <g font-size="12" font-weight="700">
+            <g data-lang="PL"><circle cx="25" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="25" y="164" text-anchor="middle" fill="var(--codeColor)">PL</text></g>
+            <text x="75" y="162" text-anchor="middle" font-size="10" fill="currentColor" font-weight="400">вост.-слав.</text>
+            <g data-lang="BE"><circle cx="55" cy="220" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="55" y="224" text-anchor="middle" fill="var(--codeColor)">BE</text></g>
+            <g><circle cx="95" cy="220" r="15" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/><text x="95" y="224" text-anchor="middle" fill="currentColor" font-weight="400">RU</text></g>
+            <g data-lang="LA"><circle cx="125" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="125" y="164" text-anchor="middle" fill="var(--codeColor)">LA</text></g>
+            <g data-lang="ES"><circle cx="135" cy="220" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="135" y="224" text-anchor="middle" fill="var(--codeColor)">ES</text></g>
+            <g data-lang="EN"><circle cx="190" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="190" y="164" text-anchor="middle" fill="var(--codeColor)">EN</text></g>
+            <g data-lang="EU"><circle cx="215" cy="270" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="215" y="274" text-anchor="middle" fill="var(--codeColor)">EU</text></g>
+            <text x="215" y="298" text-anchor="middle" font-size="10" fill="currentColor" font-weight="400">изолят</text>
+          </g>
+        </svg>
+        <div class="foot">пунктир ES–EU: заимствования (txatarra → chatarra)</div>
+      </div>
+      <p class="cap">Кружки — цветом языка. Баскский стоит отдельно от корня.</p>
+    </div>
+    <div>
+      <div class="page single" data-lang="SUM">
+        <div class="hdr"><span class="code">≠</span><span class="t">Ложные друзья PL–RU</span><span class="n">· 170 ·</span></div>
+        <table class="t">
+          <tr><th>PL</th><th>значит</th><th>ловушка RU</th></tr>
+          <tr><td class="end">uroda</td><td>красота</td><td>урод</td></tr>
+          <tr><td class="end">dywan</td><td>ковёр</td><td>диван</td></tr>
+          <tr><td class="end">sklep</td><td>магазин</td><td>склеп</td></tr>
+          <tr><td class="end">owoc</td><td>фрукт</td><td>овощ</td></tr>
+          <tr><td class="end">zakaz</td><td>запрет</td><td>заказ</td></tr>
+          <tr><td class="end">krzesło</td><td>стул</td><td>кресло</td></tr>
+          <tr><td class="end">dworzec</td><td>вокзал</td><td>дворец</td></tr>
+          <tr><td class="end">zapominać</td><td>забывать</td><td>запоминать</td></tr>
+        </table>
+        <div class="foot">пишется с конца тетради назад · колонка BE — по словарю</div>
+      </div>
+      <p class="cap">Список растёт от стр. 170 к 165.</p>
+    </div>
+  </div>
+
+  <h2>Баскский и «для души», стр. 68 и 159</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="EU">
+      <div class="hdr"><span class="code">EU</span><span class="t">Alfabetoa</span><span class="n">· 68 ·</span></div>
+      <table class="t">
+        <tr><td class="end">x</td><td>ш</td><td class="ex">xagu</td></tr>
+        <tr><td class="end">tx</td><td>ч</td><td class="ex">etxe</td></tr>
+        <tr><td class="end">tz</td><td>ц (плоское с)</td><td class="ex">hitz</td></tr>
+        <tr><td class="end">ts</td><td>ц (кончиком языка)</td><td class="ex">hots</td></tr>
+        <tr><td class="end">z</td><td>с плоское</td><td class="ex">zer</td></tr>
+        <tr><td class="end">s</td><td>с ближе к ш</td><td class="ex">su</td></tr>
+        <tr><td class="end">ll</td><td>мягкое л</td><td class="ex">olloa</td></tr>
+        <tr><td class="end">rr</td><td>раскатистое р</td><td class="ex">harri</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="sym">♡</span>20 = hogei · 40 = <span class="end">berr</span>ogei (2 × 20)</p>
+      <div class="foot">грамматику — не раньше чем через месяц</div>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">♡</span><span class="t">Красивые слова</span><span class="n">· 159 ·</span></div>
+      <p data-lang="BE"><span class="code">BE</span> <span class="end">сутонне / sutońnie</span> — сумерки</p>
+      <p data-lang="PL"><span class="code">PL</span> <span class="end">szeleścić</span> — шелестеть</p>
+      <p data-lang="LA"><span class="code">LA</span> <span class="end">festīnā lentē</span> — спеши медленно</p>
+      <p data-lang="ES"><span class="code">ES</span> <span class="end">sobremesa</span> — разговор за столом после еды</p>
+      <p data-lang="EU"><span class="code">EU</span> <span class="end">egun on</span> — добрый день</p>
+      <p data-lang="EN"><span class="code">EN</span> <span class="end">petrichor</span> — запах дождя по сухой земле</p>
+      <div class="foot">свободная зона: здесь можно без правил</div>
+    </div>
+  </div></div>
+
+  <h2>Карта ярлыков на обрезе, стр. 7</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="SUM" id="tabPage">
+        <div class="hdr"><span class="code">∑</span><span class="t">Ярлыки на обрезе</span><span class="n">· 7 ·</span></div>
+        <table class="t" id="tabTable"></table>
+        <div class="foot">washi 15 мм, загнуть на обе стороны по 3–4 мм</div>
+        <div class="tabs" id="tabs"></div>
+      </div>
+      <p class="cap">Позиции фиксированы: ярлык находит язык на ощупь.</p>
+    </div>
+    <div>
+      <div class="page single gridded" data-lang="PL">
+        <div class="hdr"><span class="code">PL</span><span class="t">Шаблон страницы</span><span class="n">★ · NN ·</span></div>
+        <p><span class="sym">▸</span>правило ……………………</p>
+        <p><span class="sym">›</span><span class="ex">пример …………………</span></p>
+        <p><span class="sym">⚠</span>исключение ……………</p>
+        <p class="small" style="margin-top:18px">Подложка 5 мм под листом.<br>Сначала карандаш, потом тушь.<br>Поля: 8 мм у корешка, 5 мм у обреза.</p>
+        <div class="foot">→ связанные страницы · Anki-тег · ↺</div>
+      </div>
+      <p class="cap">Одна и та же шапка на всех справочных страницах.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const themes = {
+  "t-okabe": "Каждому языку свой цвет: код в шапке, линия под ней и окончания. Основной текст чёрный. Проще всего листать по языкам. Нужно 6 цветных ручек; резерв +1 — серым, пока язык не выбран.",
+  "t-minimal": "Только чёрная ручка. Язык отличается рамкой вокруг кода и цветным ярлыком на обрезе. Меньше всего визуального шума и нечего подбирать. Разницу между языками видно хуже.",
+  "t-func": "Подход Линди Ботес: цвет обозначает функцию, а не язык. Формы и окончания — синие, примеры — розовые, «ещё не выучено» — жёлтый маркер. Язык отмечен цветной чертой под кодом. Хорошо для грамматики, но два цветовых кода одновременно могут перегружать.",
+  "t-stamp": "Сепия и машинописный шрифт: коды как круглые штампы, двойная линия под шапкой. Подходит, если тетрадь — больше хобби и эстетика, чем инструмент. Требует штампов или аккуратного обвода; медленнее в заполнении."
+};
+function setTheme(t){
+  document.body.className = t;
+  document.querySelectorAll("[data-theme-btn]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.themeBtn===t)));
+  document.getElementById("themeDesc").textContent = themes[t];
+  try{ localStorage.setItem("mdTheme", t); }catch(e){}
+}
+document.querySelectorAll("[data-theme-btn]").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.themeBtn)));
+
+const C = {EN:"#0072B2",PL:"#D55E00",ES:"#E69F00",EU:"#56B4E9",BE:"#009E73",NEW:"#9aa3a9",LA:"#CC79A7",S:"#5b6770",G:"#3f4a52",K:"#b08d57",R:"#c9ced2"};
+const plan = [
+  ["служебные: титул, индекс, легенда, ярлыки",7,C.S],
+  ["EN — основной",30,C.EN],
+  ["PL",15,C.PL],
+  ["ES",15,C.ES],
+  ["EU",15,C.EU],
+  ["BE",10,C.BE],
+  ["+1 — резерв под новый язык",15,C.NEW,1],
+  ["LA",4,C.LA],
+  ["общие сравнительные развороты",8,C.G],
+  ["растущая часть (любой язык)",36,C.R,1],
+  ["списки с конца: ошибки, ложные друзья, фразы, красивые слова, ресурсы",21,C.K]
+];
+function setStrat(){
+  const bar=document.getElementById("bar"); bar.innerHTML="";
+  const tbl=document.getElementById("allocTable");
+  tbl.innerHTML="<tr><th>раздел</th><th>страницы</th><th>кол-во</th></tr>";
+  let start=1;
+  plan.forEach(([name,n,color,light])=>{
+    const d=document.createElement("div"); d.className="seg"+(light?" light":"");
+    d.style.flex=n+" 0 0"; d.style.background=color;
+    d.title=`${name}: стр. ${start}–${start+n-1} (${n})`;
+    const short=name.split(" ")[0].replace(":","");
+    d.textContent = n>=6 ? `${short} ${n}` : "";
+    bar.appendChild(d);
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${color};margin-right:6px"></i>${name}</td><td>${start}–${start+n-1}</td><td>${n}</td>`;
+    tbl.appendChild(tr);
+    start+=n;
+  });
+  document.getElementById("stratText").innerHTML="<span>PL, ES и EU получают по 15 страниц, BE — 10, резерв под новый язык — 15. Мнение: если какому-то языку не хватит места, он продолжается в растущей части. Резерв +1 стоит в конце языковых блоков, а не в растущей части, чтобы у нового языка был свой ярлык.</span>";
+}
+
+const tabs=[["EN","EN","английский","8–37",8],["PL","PL","польский","38–52",23],["ES","ES","испанский","53–67",38],["EU","EU","баскский","68–82",53],["BE","BE","беларуская","83–92",68],["+1","NEW","резерв","93–107",83],["LA","LA","латынь","108–111",98],["∑","SUM","общие","112–119",113],["←","SUM","списки","156–176",128]];
+const tt=document.getElementById("tabTable"), tb=document.getElementById("tabs");
+tt.innerHTML="<tr><th>ярлык</th><th>мм от верха</th><th>стр.</th></tr>";
+tabs.forEach(([code,lang,name,pages,mm])=>{
+  const tr=document.createElement("tr"); tr.dataset.lang=lang;
+  tr.innerHTML=`<td><span class="code">${code}</span> ${name}</td><td>${mm}–${mm+12}</td><td>${pages}</td>`; tt.appendChild(tr);
+  const t=document.createElement("div"); t.className="tab"; t.dataset.lang=lang;
+  t.style.top=(mm/148*100)+"%"; t.style.height=(12/148*100)+"%"; tb.appendChild(t);
+});
+
+let saved="t-okabe"; try{ saved=localStorage.getItem("mdTheme")||saved; }catch(e){}
+setTheme(themes[saved]?saved:"t-okabe"); setStrat();
+</script>
+</body>
+</html>

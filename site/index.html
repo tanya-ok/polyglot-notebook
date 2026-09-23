@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MD A6 — layout ideas for a multilingual notebook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --desk:#dfe3e6; --desk-2:#cfd5d9; --text:#1d2327; --muted:#56616a; --line:#b9c1c7;
+  --paper:#f6efdf; --paper-edge:#e6dcc4; --ink:#1f1f1f; --grid:rgba(60,70,80,.07);
+  --PL:#D55E00; --EN:#0072B2; --BE:#009E73; --LA:#CC79A7; --ES:#E69F00; --EU:#56B4E9; --NEW:#7f7f7f; --SUM:#1f1f1f;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --desk:#20262b; --desk-2:#2a3137; --text:#e8ecef; --muted:#a3aeb7; --line:#3d464d; }
+}
+:root[data-theme="dark"]{ --desk:#20262b; --desk-2:#2a3137; --text:#e8ecef; --muted:#a3aeb7; --line:#3d464d; }
+html{ scroll-padding-top:env(safe-area-inset-top,0px); }
+*,*::before,*::after{ box-sizing:inherit; }
+body{ margin:0; background:var(--desk); color:var(--text); font-family:Figtree, "Segoe UI", system-ui, sans-serif; line-height:1.5; }
+.wrap{ max-width:1180px; margin:0 auto; padding:28px 20px 60px; }
+h1{ font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.15; margin:0 0 8px; font-weight:700; letter-spacing:-.01em; }
+h2{ font-size:1.25rem; margin:48px 0 6px; }
+p.lead{ max-width:68ch; color:var(--muted); margin:0 0 20px; }
+p.note{ max-width:70ch; color:var(--muted); margin:6px 0 16px; font-size:.95rem; }
+
+/* theme switcher */
+.switch{ position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--desk); padding:10px 0; display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--line); }
+.switch button{ font:inherit; font-size:.95rem; padding:8px 14px; border-radius:6px; border:1px solid var(--line); background:var(--desk-2); color:var(--text); cursor:pointer; }
+.switch button[aria-pressed="true"]{ background:var(--text); color:var(--desk); border-color:var(--text); }
+.switch button:focus-visible, .strat button:focus-visible{ outline:3px solid var(--EN); outline-offset:2px; }
+.theme-desc{ margin:12px 0 0; max-width:75ch; color:var(--muted); min-height:3em; }
+
+/* allocation bar */
+.strat{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+.strat button{ font:inherit; padding:6px 12px; border-radius:6px; border:1px solid var(--line); background:var(--desk-2); color:var(--text); cursor:pointer; }
+.strat button[aria-pressed="true"]{ background:var(--text); color:var(--desk); }
+.barbox{ overflow-x:auto; }
+.bar{ display:flex; height:54px; min-width:760px; border-radius:4px; overflow:hidden; border:1px solid var(--line); }
+.seg{ display:flex; align-items:flex-end; padding:4px 5px; font-size:.72rem; line-height:1.15; color:#fff; border-right:1px solid rgba(255,255,255,.5); overflow:hidden; }
+.seg.light{ color:#1d2327; }
+.legend-row{ display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; font-size:.9rem; color:var(--muted); }
+.legend-row span b{ color:var(--text); font-weight:600; }
+
+/* spreads */
+.spread-box{ overflow-x:auto; padding:10px 0 18px; }
+.spread{ display:flex; width:max-content; margin:0 auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
+.page{ position:relative; width:300px; aspect-ratio:105/148; background:var(--paper); color:var(--ink);
+  font-family:Kalam, "Comic Neue", "Segoe Print", cursive; font-size:12.5px; line-height:1.35;
+  padding:16px 18px 14px 18px; overflow:hidden; }
+.page.single{ box-shadow:0 10px 18px rgba(0,0,0,.18); margin:0 auto; }
+.spread .page:first-child{ border-radius:3px 0 0 3px; background:linear-gradient(to left, rgba(0,0,0,.08), transparent 16px), var(--paper); padding-right:24px; }
+.spread .page:last-child{ border-radius:0 3px 3px 0; background:linear-gradient(to right, rgba(0,0,0,.10), transparent 16px), var(--paper); padding-left:24px; }
+.page.gridded{ background-image:linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size:14px 14px; }
+.hdr{ display:flex; align-items:baseline; gap:6px; padding-bottom:3px; margin-bottom:7px; border-bottom:1.5px solid var(--hdrLine); font-size:13px; }
+.hdr .t{ flex:1; font-weight:700; }
+.hdr .n{ font-size:11px; opacity:.75; }
+.code{ font-weight:700; color:var(--codeColor); padding:0 3px; border:var(--codeBorder); border-radius:var(--codeRadius); transform:var(--codeRotate); display:inline-block; }
+.end{ color:var(--endColor); font-weight:var(--endWeight); }
+.ex{ color:var(--exColor); font-style:italic; }
+.hl{ background:var(--hlBg); }
+.sym{ display:inline-block; width:1.2em; text-align:center; }
+table.t{ width:100%; border-collapse:collapse; font-size:11.5px; }
+table.t th, table.t td{ padding:1.5px 3px; text-align:left; vertical-align:top; border-bottom:1px solid var(--tblLine); }
+table.t th{ font-weight:700; }
+.small{ font-size:10.5px; opacity:.85; }
+.foot{ position:absolute; left:18px; right:18px; bottom:10px; font-size:10.5px; border-top:1px dashed rgba(0,0,0,.25); padding-top:3px; opacity:.8; }
+[data-lang]{ --L:var(--SUM); }
+[data-lang="PL"]{ --L:var(--PL); } [data-lang="EN"]{ --L:var(--EN); } [data-lang="BE"]{ --L:var(--BE); }
+[data-lang="LA"]{ --L:var(--LA); } [data-lang="ES"]{ --L:var(--ES); } [data-lang="EU"]{ --L:var(--EU); } [data-lang="NEW"]{ --L:var(--NEW); }
+
+/* edge tabs */
+.tabs{ position:absolute; top:0; right:0; bottom:0; width:10px; }
+.tab{ position:absolute; right:0; width:10px; border-radius:2px 0 0 2px; background:var(--tabColor); }
+
+/* THEMES */
+body.t-okabe{ --codeColor:var(--L); --codeBorder:0; --codeRadius:0; --codeRotate:none; --hdrLine:var(--L);
+  --endColor:var(--L); --endWeight:700; --exColor:#444; --hlBg:transparent; --tblLine:rgba(0,0,0,.12); --tabColor:var(--L); }
+body.t-minimal{ --codeColor:var(--ink); --codeBorder:1px solid var(--ink); --codeRadius:2px; --codeRotate:none; --hdrLine:rgba(0,0,0,.45);
+  --endColor:var(--ink); --endWeight:700; --exColor:#555; --hlBg:transparent; --tblLine:rgba(0,0,0,.10); --tabColor:#5b5b5b; }
+body.t-minimal .hdr{ border-bottom-width:1px; }
+body.t-func{ --codeColor:var(--ink); --codeBorder:0; --codeRadius:0; --codeRotate:none; --hdrLine:var(--ink);
+  --endColor:#2458a6; --endWeight:700; --exColor:#b83a78; --hlBg:rgba(255,221,87,.55); --tblLine:rgba(0,0,0,.12); --tabColor:var(--L); }
+body.t-stamp{ --codeColor:#7a2e22; --codeBorder:1.5px solid #7a2e22; --codeRadius:50%; --codeRotate:rotate(-6deg); --hdrLine:#6b4a2b;
+  --endColor:#6b4a2b; --endWeight:700; --exColor:#3d3d3d; --hlBg:transparent; --tblLine:rgba(107,74,43,.25); --tabColor:#8b6a45; }
+body.t-stamp .page{ font-family:"Special Elite", "Courier New", monospace; font-size:11.2px; }
+body.t-stamp .hdr{ border-bottom:3px double #6b4a2b; }
+body.t-stamp .code{ padding:1px 4px; font-size:10px; }
+body.t-func .code{ text-decoration:underline; text-decoration-color:var(--L); text-decoration-thickness:3px; text-underline-offset:2px; }
+
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; align-items:start; }
+.cap{ font-size:.9rem; color:var(--muted); text-align:center; margin-top:10px; }
+.swatches{ display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; }
+.sw{ display:flex; align-items:center; gap:8px; font-size:.92rem; }
+.sw i{ width:22px; height:22px; border-radius:4px; display:inline-block; border:1px solid rgba(0,0,0,.15); }
+@media (prefers-reduced-motion: no-preference){ .page{ transition:font-family .2s; } }
+</style>
+</head>
+<body class="t-okabe">
+<div class="wrap">
+  <h1>A multilingual MD A6 notebook: layout ideas</h1>
+<p class="note"><a href="ru/">Русская версия</a></p>
+  <p class="lead">Page mockups at true A6 proportions (105 × 148 mm), 176 blank pages: English, Polish, Spanish, Basque, Belarusian, a reserve for one more language, and a little Latin. The style switch changes every spread at once, so the styles are easy to compare.</p>
+
+  <div class="switch" role="group" aria-label="Page style">
+    <button data-theme-btn="t-okabe" aria-pressed="true">Colour = language</button>
+    <button data-theme-btn="t-minimal" aria-pressed="false">Minimal: ink only</button>
+    <button data-theme-btn="t-func" aria-pressed="false">Colour = function</button>
+    <button data-theme-btn="t-stamp" aria-pressed="false">Archive and stamps</button>
+  </div>
+  <p class="theme-desc" id="themeDesc"></p>
+
+  <h2>How the 176 pages are split</h2>
+  <p class="note">Order in the notebook: EN → PL → ES → EU → BE → reserve for a new language → LA → shared spreads → open section → lists written from the back. Hover over a segment to see its page range.</p>
+  <div class="barbox"><div class="bar" id="bar"></div></div>
+  <div class="legend-row" id="stratText"></div>
+  <div class="barbox" style="margin-top:14px"><table class="t" id="allocTable" style="font-family:inherit;font-size:.95rem;max-width:620px"></table></div>
+
+  <h2>Language colours (Okabe–Ito palette)</h2>
+  <p class="note">These colours stay distinguishable for the most common types of colour-vision deficiency. Yellow is left out: a thin yellow line is almost invisible on cream paper.</p>
+  <div class="swatches">
+    <span class="sw"><i style="background:#0072B2"></i>EN — blue</span>
+    <span class="sw"><i style="background:#D55E00"></i>PL — vermilion</span>
+    <span class="sw"><i style="background:#E69F00"></i>ES — orange</span>
+    <span class="sw"><i style="background:#56B4E9"></i>EU — sky blue</span>
+    <span class="sw"><i style="background:#009E73"></i>BE — bluish green</span>
+    <span class="sw"><i style="background:transparent;border:2px dashed #7f7f7f"></i>+1 — dashed grey until the language is chosen</span>
+    <span class="sw"><i style="background:#CC79A7"></i>LA — reddish purple</span>
+    <span class="sw"><i style="background:#1f1f1f"></i>∑ shared — black</span>
+  </div>
+
+  <h2>Index and key, pp. 2–3 and 6</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Index</span><span class="n">· 2 ·</span></div>
+      <table class="t">
+        <tr><th>code</th><th>topic</th><th>p.</th></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>tense map</td><td>8–9</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>articles</td><td>10</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>meeting phrases</td><td>18</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>7 przypadków</td><td>38–39</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>przyimki + przyp.</td><td>40</td></tr>
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>liczebniki <span class="hl">★</span></td><td>42</td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>ser / estar</td><td>53</td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>alfabetoa</td><td>68</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>łacinka</td><td>83</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>Ў / Ŭ</td><td>84</td></tr>
+        <tr data-lang="SUM"><td><span class="code">∑</span></td><td>“to be” ×6</td><td>112</td></tr>
+      </table>
+      <div class="foot">● = has a pasted-in sheet · +1: 93–107 · ← from the back: 156–176</div>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Key</span><span class="n">· 6 ·</span></div>
+      <table class="t">
+        <tr><td class="sym">▸</td><td>rule</td><td class="sym">≠</td><td>false friend</td></tr>
+        <tr><td class="sym">⚠</td><td>exception</td><td class="sym">≈</td><td>idiom</td></tr>
+        <tr><td class="sym">›</td><td><span class="ex">example</span></td><td class="sym">★</td><td>key point</td></tr>
+        <tr><td class="sym">↺</td><td>my mistake</td><td class="sym">♡</td><td>just for joy</td></tr>
+        <tr><td class="sym">→</td><td>see page</td><td class="sym">?</td><td>to check</td></tr>
+      </table>
+      <div style="margin-top:10px">
+        <div data-lang="EN"><span class="code">EN</span> English</div>
+        <div data-lang="PL"><span class="code">PL</span> polski</div>
+        <div data-lang="ES"><span class="code">ES</span> español</div>
+        <div data-lang="EU"><span class="code">EU</span> euskara</div>
+        <div data-lang="BE"><span class="code">BE</span> беларуская / biełaruskaja</div>
+        <div data-lang="NEW"><span class="code">+1</span> ______ (reserve)</div>
+        <div data-lang="LA"><span class="code">LA</span> latina</div>
+      </div>
+      <p class="small" style="margin-top:10px">Header: [code] │ topic │ flags │ · page ·<br>Endings look <span class="end">like this</span>, examples <span class="ex">like this</span>.</p>
+    </div>
+  </div></div>
+
+  <h2>Polish cases across a spread, pp. 38–39</h2>
+  <p class="note">The spine falls on the natural seam between singular and plural, so the table gets 210 mm of width instead of 105.</p>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="PL">
+      <div class="hdr"><span class="code">PL</span><span class="t">Przypadki — l. poj.</span><span class="n">★ · 38 ·</span></div>
+      <table class="t">
+        <tr><th></th><th>pytanie</th><th>m</th><th>f</th><th>n</th></tr>
+        <tr><td>M</td><td>kto? co?</td><td>—</td><td class="end">-a</td><td class="end">-o/-e</td></tr>
+        <tr><td>D</td><td>kogo? czego?</td><td class="end">-a/-u</td><td class="end">-y/-i</td><td class="end">-a</td></tr>
+        <tr><td>C</td><td>komu? czemu?</td><td class="end">-owi/-u</td><td class="end">-e/-i</td><td class="end">-u</td></tr>
+        <tr><td>B</td><td>kogo? co?</td><td>=M/=D*</td><td class="end">-ę</td><td>=M</td></tr>
+        <tr><td>N</td><td>kim? czym?</td><td class="end">-em</td><td class="end">-ą</td><td class="end">-em</td></tr>
+        <tr><td>Ms</td><td>o kim? o czym?</td><td class="end">-e/-u</td><td class="end">-e/-i</td><td class="end">-e/-u</td></tr>
+        <tr><td>W</td><td>—</td><td class="end">-e/-u</td><td class="end">-o/-i</td><td>=M</td></tr>
+      </table>
+      <p class="small">* animate m: B = D</p>
+      <p><span class="sym">›</span><span class="ex">Piszę długopis<span class="end">em</span>.</span></p>
+      <div class="foot">⚠ stem changes: ręka → ręce → 44</div>
+    </div>
+    <div class="page" data-lang="PL">
+      <div class="hdr"><span class="code">PL</span><span class="t">Przypadki — l. mn.</span><span class="n">· 39 ·</span></div>
+      <table class="t">
+        <tr><th></th><th>m-os</th><th>nie-m-os</th><th>used with</th></tr>
+        <tr><td>M</td><td class="end">-i/-y</td><td class="end">-y/-i/-e</td><td>subject</td></tr>
+        <tr><td>D</td><td class="end">-ów/-y</td><td class="end">-ów/∅/-i</td><td>bez, do, <span class="hl">nie ma</span></td></tr>
+        <tr><td>C</td><td class="end">-om</td><td class="end">-om</td><td>dziękować</td></tr>
+        <tr><td>B</td><td>=D</td><td>=M</td><td>mam, widzę</td></tr>
+        <tr><td>N</td><td class="end">-ami</td><td class="end">-ami</td><td>z, jestem X</td></tr>
+        <tr><td>Ms</td><td class="end">-ach</td><td class="end">-ach</td><td>o, w, na, przy</td></tr>
+        <tr><td>W</td><td>=M</td><td>=M</td><td>addressing someone</td></tr>
+      </table>
+      <p><span class="sym">›</span><span class="ex">Rozmawiam z koleg<span class="end">ami</span>.</span></p>
+      <div class="foot">→ 40 prepositions · Anki: pl::przyp</div>
+    </div>
+  </div></div>
+
+  <h2>Polish numerals and Belarusian łacinka, pp. 42 and 83</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="PL">
+        <div class="hdr"><span class="code">PL</span><span class="t">Liczebnik + rzecz.</span><span class="n">★ · 42 ·</span></div>
+        <p><b>1</b> → singular<br><span class="ex">jeden kot</span></p>
+        <p><b>2, 3, 4</b> (22–24…, but <u>not</u> 12–14) → M plural<br><span class="ex">dwa kot<span class="end">y</span> śpią</span></p>
+        <p><b>5+</b> and 12–14 → D plural + verb in 3rd sg. neuter<br><span class="ex">pięć kot<span class="end">ów</span> spało</span></p>
+        <p><span class="sym">⚠</span><b>masculine-personal:</b><br><span class="ex">dwaj studenci = dwóch studentów</span><br><span class="ex">pięciu studentów przyszło</span></p>
+        <p class="small"><span class="sym">⚠</span> oba / obie / obaj · dwoje dzieci</p>
+        <div class="foot">↺ see 175 · → 43</div>
+      </div>
+      <p class="cap">A decision tree instead of a table fits on one page.</p>
+    </div>
+    <div>
+      <div class="page single" data-lang="BE">
+        <div class="hdr"><span class="code">BE</span><span class="t">Łacinka ↔ Cyrillic</span><span class="n">· 83 ·</span></div>
+        <table class="t">
+          <tr><td>г <span class="end">h</span></td><td>ж <span class="end">ž</span></td><td>з <span class="end">z</span></td><td>зь <span class="end">ź</span></td></tr>
+          <tr><td>й <span class="end">j</span></td><td>л <span class="end">ł</span></td><td>ль <span class="end">l</span></td><td>нь <span class="end">ń</span></td></tr>
+          <tr><td>сь <span class="end">ś</span></td><td>ў <span class="end">ŭ</span></td><td>х <span class="end">ch</span></td><td>ц <span class="end">c</span></td></tr>
+          <tr><td>ць <span class="end">ć</span></td><td>ч <span class="end">č</span></td><td>ш <span class="end">š</span></td><td>ы <span class="end">y</span></td></tr>
+        </table>
+        <p class="small" style="margin-top:6px">е/ё/ю/я: word-initially, after a vowel or ў → <span class="end">je/jo/ju/ja</span>; after a consonant → <span class="end">ie/io/iu/ia</span></p>
+        <p style="margin:6px 0 2px"><b>Compare with Polish</b></p>
+        <table class="t">
+          <tr data-lang="BE"><td><span class="code">BE</span></td><td>č</td><td>š</td><td>ž</td><td>ł</td><td>ć ś ź ń</td></tr>
+          <tr data-lang="PL"><td><span class="code">PL</span></td><td>cz</td><td>sz</td><td>ż</td><td>ł</td><td>ć ś ź ń</td></tr>
+        </table>
+        <p><span class="sym">›</span><span class="ex">Biełaruś · Mahiloŭ</span></p>
+        <div class="foot">♡ favourite words → 87</div>
+      </div>
+      <p class="cap">Differences from Polish sit on a separate line at the bottom.</p>
+    </div>
+  </div>
+
+  <h2>Ў — short U (у нескладовае), p. 84</h2>
+  <p class="note">Notebook rule: every Belarusian example is written twice — in Cyrillic and, right after it, in łacinka, separated by “/”.</p>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="BE">
+        <div class="hdr"><span class="code">BE</span><span class="t">Ў — short U</span><span class="n">· 84 ·</span></div>
+        <p style="font-size:15px;margin:2px 0 6px"><b>Ў ў</b> / <b>Ŭ ŭ</b> <span class="small">U+040E · U+045E</span></p>
+        <p><span class="sym">▸</span>after a vowel, у without its own syllable → ў<br><span class="sym">♪</span>sounds like w in <i>how</i></p>
+        <p><span class="sym">›</span><span class="ex">яна <span class="end">ў</span>зяла / jana <span class="end">ŭ</span>ziała</span><br>
+        <span class="sym"></span>but <span class="ex">ён <span class="end">у</span>зяў / jon <span class="end">u</span>ziaŭ</span></p>
+        <table class="t">
+          <tr><th>BE</th><th>łac.</th><th>PL</th><th>EN</th></tr>
+          <tr><td>воўк</td><td class="end">voŭk</td><td>wilk</td><td>wolf</td></tr><tr><td>быў</td><td class="end">byŭ</td><td>był</td><td>was</td></tr><tr><td>праўда</td><td class="end">praŭda</td><td>prawda</td><td>truth</td></tr><tr><td>аўторак</td><td class="end">aŭtorak</td><td>wtorek</td><td>Tuesday</td></tr>
+        </table>
+        <div class="foot">♡ a monument to the letter Ў in Polotsk: помнік літары Ў / pomnik litary Ŭ — Połack</div>
+      </div>
+      <p class="cap">Cyrillic first, łacinka right after; a comparison with Polish in the table.</p>
+    </div>
+  </div>
+
+  <h2>Comparative spread: one idea in every language, pp. 112–113</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">“To be”</span><span class="n">· 112 ·</span></div>
+      <table class="t">
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>być · <span class="end">jestem</span></td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>be · <span class="end">I am</span></td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>быць / być · often ∅</td></tr>
+        <tr data-lang="LA"><td><span class="code">LA</span></td><td>esse · <span class="end">sum</span></td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>ser / estar · <span class="end">soy / estoy</span></td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>izan / egon · <span class="end">naiz / nago</span></td></tr>
+      </table>
+      <p style="margin-top:10px"><span class="sym">▸</span>ES and EU split “essence” from “state”. The others do not.</p>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">∑</span><span class="t">Thank you · please · sorry</span><span class="n">· 113 ·</span></div>
+      <table class="t">
+        <tr data-lang="PL"><td><span class="code">PL</span></td><td>dziękuję · proszę · przepraszam</td></tr>
+        <tr data-lang="EN"><td><span class="code">EN</span></td><td>thank you · please · sorry</td></tr>
+        <tr data-lang="BE"><td><span class="code">BE</span></td><td>дзякуй · калі ласка · прабачце<br><span class="small">dziakuj · kali łaska · prabačcie</span></td></tr>
+        <tr data-lang="LA"><td><span class="code">LA</span></td><td>grātiās · quaesō · ignōsce</td></tr>
+        <tr data-lang="ES"><td><span class="code">ES</span></td><td>gracias · por favor · perdón</td></tr>
+        <tr data-lang="EU"><td><span class="code">EU</span></td><td>eskerrik asko · mesedez · barkatu</td></tr>
+      </table>
+      <div class="foot">numbers 1–10 → 114 · “I don’t understand” → 115</div>
+    </div>
+  </div></div>
+
+  <h2>Language family tree and false friends, pp. 116 and 170</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="SUM">
+        <div class="hdr"><span class="code">∑</span><span class="t">My languages</span><span class="n">· 116 ·</span></div>
+        <svg viewBox="0 0 260 300" width="100%" aria-label="Language family tree">
+          <g font-family="inherit" font-size="11" fill="currentColor" stroke="currentColor">
+            <line x1="100" y1="30" x2="40" y2="80" stroke-width="1"/>
+            <line x1="100" y1="30" x2="115" y2="80" stroke-width="1"/>
+            <line x1="100" y1="30" x2="185" y2="80" stroke-width="1"/>
+            <line x1="40" y1="95" x2="25" y2="150" stroke-width="1"/>
+            <line x1="40" y1="95" x2="75" y2="150" stroke-width="1"/>
+            <line x1="75" y1="165" x2="75" y2="205" stroke-width="1"/>
+            <line x1="115" y1="95" x2="125" y2="150" stroke-width="1"/>
+            <line x1="125" y1="165" x2="125" y2="205" stroke-width="1"/>
+            <line x1="185" y1="95" x2="190" y2="150" stroke-width="1"/>
+            <line x1="148" y1="215" x2="205" y2="260" stroke-width="1" stroke-dasharray="3 3"/>
+            <text x="100" y="24" text-anchor="middle" stroke="none" font-weight="700">Indo-European</text>
+            <text x="40" y="92" text-anchor="middle" stroke="none">Slavic</text>
+            <text x="115" y="92" text-anchor="middle" stroke="none">Italic</text>
+            <text x="185" y="92" text-anchor="middle" stroke="none">Germanic</text>
+          </g>
+          <g font-size="12" font-weight="700">
+            <g data-lang="PL"><circle cx="25" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="25" y="164" text-anchor="middle" fill="var(--codeColor)">PL</text></g>
+            <text x="75" y="162" text-anchor="middle" font-size="10" fill="currentColor" font-weight="400">East Slavic</text>
+            <g data-lang="BE"><circle cx="55" cy="220" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="55" y="224" text-anchor="middle" fill="var(--codeColor)">BE</text></g>
+            <g><circle cx="95" cy="220" r="15" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/><text x="95" y="224" text-anchor="middle" fill="currentColor" font-weight="400">RU</text></g>
+            <g data-lang="LA"><circle cx="125" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="125" y="164" text-anchor="middle" fill="var(--codeColor)">LA</text></g>
+            <g data-lang="ES"><circle cx="135" cy="220" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="135" y="224" text-anchor="middle" fill="var(--codeColor)">ES</text></g>
+            <g data-lang="EN"><circle cx="190" cy="160" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="190" y="164" text-anchor="middle" fill="var(--codeColor)">EN</text></g>
+            <g data-lang="EU"><circle cx="215" cy="270" r="15" fill="none" stroke="var(--codeColor)" stroke-width="2"/><text x="215" y="274" text-anchor="middle" fill="var(--codeColor)">EU</text></g>
+            <text x="215" y="298" text-anchor="middle" font-size="10" fill="currentColor" font-weight="400">isolate</text>
+          </g>
+        </svg>
+        <div class="foot">dashed ES–EU line: loanwords (txatarra → chatarra)</div>
+      </div>
+      <p class="cap">Circles use the language colour. Basque stands apart from the root.</p>
+    </div>
+    <div>
+      <div class="page single" data-lang="SUM">
+        <div class="hdr"><span class="code">≠</span><span class="t">False friends PL–RU</span><span class="n">· 170 ·</span></div>
+        <table class="t">
+          <tr><th>PL</th><th>means</th><th>RU trap</th></tr>
+          <tr><td class="end">uroda</td><td>beauty</td><td>урод <span class="small">(ugly person)</span></td></tr>
+          <tr><td class="end">dywan</td><td>carpet</td><td>диван <span class="small">(sofa)</span></td></tr>
+          <tr><td class="end">sklep</td><td>shop</td><td>склеп <span class="small">(crypt)</span></td></tr>
+          <tr><td class="end">owoc</td><td>fruit</td><td>овощ <span class="small">(vegetable)</span></td></tr>
+          <tr><td class="end">zakaz</td><td>ban</td><td>заказ <span class="small">(order)</span></td></tr>
+          <tr><td class="end">krzesło</td><td>chair</td><td>кресло <span class="small">(armchair)</span></td></tr>
+          <tr><td class="end">dworzec</td><td>railway station</td><td>дворец <span class="small">(palace)</span></td></tr>
+          <tr><td class="end">zapominać</td><td>to forget</td><td>запоминать <span class="small">(to memorise)</span></td></tr>
+        </table>
+        <div class="foot">written from the back of the notebook · BE column: check a dictionary</div>
+      </div>
+      <p class="cap">The list grows from p. 170 back to p. 165.</p>
+    </div>
+  </div>
+
+  <h2>Basque and “just for joy”, pp. 68 and 159</h2>
+  <div class="spread-box"><div class="spread">
+    <div class="page" data-lang="EU">
+      <div class="hdr"><span class="code">EU</span><span class="t">Alfabetoa</span><span class="n">· 68 ·</span></div>
+      <table class="t">
+        <tr><td class="end">x</td><td>sh</td><td class="ex">xagu</td></tr>
+        <tr><td class="end">tx</td><td>ch</td><td class="ex">etxe</td></tr>
+        <tr><td class="end">tz</td><td>ts (flat s)</td><td class="ex">hitz</td></tr>
+        <tr><td class="end">ts</td><td>ts (tongue-tip s)</td><td class="ex">hots</td></tr>
+        <tr><td class="end">z</td><td>flat s</td><td class="ex">zer</td></tr>
+        <tr><td class="end">s</td><td>s, close to sh</td><td class="ex">su</td></tr>
+        <tr><td class="end">ll</td><td>palatal l (as in “million”)</td><td class="ex">olloa</td></tr>
+        <tr><td class="end">rr</td><td>rolled r</td><td class="ex">harri</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="sym">♡</span>20 = hogei · 40 = <span class="end">berr</span>ogei (2 × 20)</p>
+      <div class="foot">grammar comes later, not in the first month</div>
+    </div>
+    <div class="page" data-lang="SUM">
+      <div class="hdr"><span class="code">♡</span><span class="t">Beautiful words</span><span class="n">· 159 ·</span></div>
+      <p data-lang="BE"><span class="code">BE</span> <span class="end">сутонне / sutońnie</span> — dusk</p>
+      <p data-lang="PL"><span class="code">PL</span> <span class="end">szeleścić</span> — to rustle</p>
+      <p data-lang="LA"><span class="code">LA</span> <span class="end">festīnā lentē</span> — make haste slowly</p>
+      <p data-lang="ES"><span class="code">ES</span> <span class="end">sobremesa</span> — lingering at the table after a meal</p>
+      <p data-lang="EU"><span class="code">EU</span> <span class="end">egun on</span> — good morning</p>
+      <p data-lang="EN"><span class="code">EN</span> <span class="end">petrichor</span> — the smell of rain on dry earth</p>
+      <div class="foot">free zone: no rules on this page</div>
+    </div>
+  </div></div>
+
+  <h2>Edge-tab map, p. 7</h2>
+  <div class="grid2">
+    <div>
+      <div class="page single" data-lang="SUM" id="tabPage">
+        <div class="hdr"><span class="code">∑</span><span class="t">Edge tabs</span><span class="n">· 7 ·</span></div>
+        <table class="t" id="tabTable"></table>
+        <div class="foot">15 mm washi tape, folded 3–4 mm onto each side</div>
+        <div class="tabs" id="tabs"></div>
+      </div>
+      <p class="cap">Fixed positions: you can find a language by touch.</p>
+    </div>
+    <div>
+      <div class="page single gridded" data-lang="PL">
+        <div class="hdr"><span class="code">PL</span><span class="t">Page template</span><span class="n">★ · NN ·</span></div>
+        <p><span class="sym">▸</span>rule ……………………</p>
+        <p><span class="sym">›</span><span class="ex">example …………………</span></p>
+        <p><span class="sym">⚠</span>exception ……………</p>
+        <p class="small" style="margin-top:18px">5 mm grid sheet under the page.<br>Pencil first, then ink.<br>Margins: 8 mm at the spine, 5 mm at the edge.</p>
+        <div class="foot">→ related pages · Anki tag · ↺</div>
+      </div>
+      <p class="cap">The same header on every reference page.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const themes = {
+  "t-okabe": "Each language has its own colour: the code in the header, the line under it, and the endings. Body text stays black. Easiest for flipping by language. Needs 6 coloured pens; the +1 reserve stays grey until the language is chosen.",
+  "t-minimal": "Black pen only. Languages differ by a box around the code and a coloured tab on the page edge. Least visual noise, nothing to match. Languages are harder to tell apart at a glance.",
+  "t-func": "Lindie Botes’ approach: colour marks the function, not the language. Forms and endings are blue, examples pink, “not learned yet” gets a yellow highlight. The language is marked by a coloured underline on the code. Good for grammar, but two colour codes at once can feel busy.",
+  "t-stamp": "Sepia and typewriter lettering: codes as round stamps, a double rule under the header. Suits a notebook that is more hobby and aesthetics than tool. Needs stamps or careful tracing; slower to fill in."
+};
+function setTheme(t){
+  document.body.className = t;
+  document.querySelectorAll("[data-theme-btn]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.themeBtn===t)));
+  document.getElementById("themeDesc").textContent = themes[t];
+  try{ localStorage.setItem("mdTheme", t); }catch(e){}
+}
+document.querySelectorAll("[data-theme-btn]").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.themeBtn)));
+
+const C = {EN:"#0072B2",PL:"#D55E00",ES:"#E69F00",EU:"#56B4E9",BE:"#009E73",NEW:"#9aa3a9",LA:"#CC79A7",S:"#5b6770",G:"#3f4a52",K:"#b08d57",R:"#c9ced2"};
+const plan = [
+  ["front matter: title, index, key, tab map",7,C.S],
+  ["EN — main language",30,C.EN],
+  ["PL",15,C.PL],
+  ["ES",15,C.ES],
+  ["EU",15,C.EU],
+  ["BE",10,C.BE],
+  ["+1 — reserve for a new language",15,C.NEW,1],
+  ["LA",4,C.LA],
+  ["shared comparative spreads",8,C.G],
+  ["open section (any language)",36,C.R,1],
+  ["lists from the back: mistakes, false friends, phrases, beautiful words, resources",21,C.K]
+];
+function setStrat(){
+  const bar=document.getElementById("bar"); bar.innerHTML="";
+  const tbl=document.getElementById("allocTable");
+  tbl.innerHTML="<tr><th>section</th><th>pages</th><th>count</th></tr>";
+  let start=1;
+  plan.forEach(([name,n,color,light])=>{
+    const d=document.createElement("div"); d.className="seg"+(light?" light":"");
+    d.style.flex=n+" 0 0"; d.style.background=color;
+    d.title=`${name}: pp. ${start}–${start+n-1} (${n})`;
+    const short=name.split(" ")[0].replace(":","");
+    d.textContent = n>=6 ? `${short} ${n}` : "";
+    bar.appendChild(d);
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${color};margin-right:6px"></i>${name}</td><td>${start}–${start+n-1}</td><td>${n}</td>`;
+    tbl.appendChild(tr);
+    start+=n;
+  });
+  document.getElementById("stratText").innerHTML="<span>PL, ES and EU get 15 pages each, BE gets 10, and the new-language reserve gets 15. Opinion: if any language runs out of room, it continues in the open section. The +1 reserve sits at the end of the language blocks, not in the open section, so a new language gets its own tab.</span>";
+}
+
+const tabs=[["EN","EN","English","8–37",8],["PL","PL","Polish","38–52",23],["ES","ES","Spanish","53–67",38],["EU","EU","Basque","68–82",53],["BE","BE","Belarusian","83–92",68],["+1","NEW","reserve","93–107",83],["LA","LA","Latin","108–111",98],["∑","SUM","shared","112–119",113],["←","SUM","lists","156–176",128]];
+const tt=document.getElementById("tabTable"), tb=document.getElementById("tabs");
+tt.innerHTML="<tr><th>tab</th><th>mm from top</th><th>pages</th></tr>";
+tabs.forEach(([code,lang,name,pages,mm])=>{
+  const tr=document.createElement("tr"); tr.dataset.lang=lang;
+  tr.innerHTML=`<td><span class="code">${code}</span> ${name}</td><td>${mm}–${mm+12}</td><td>${pages}</td>`; tt.appendChild(tr);
+  const t=document.createElement("div"); t.className="tab"; t.dataset.lang=lang;
+  t.style.top=(mm/148*100)+"%"; t.style.height=(12/148*100)+"%"; tb.appendChild(t);
+});
+
+let saved="t-okabe"; try{ saved=localStorage.getItem("mdTheme")||saved; }catch(e){}
+setTheme(themes[saved]?saved:"t-okabe"); setStrat();
+</script>
+</body>
+</html>
