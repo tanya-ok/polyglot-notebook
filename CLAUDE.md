@@ -50,7 +50,7 @@ Every example is written in Cyrillic and łacinka, separated by "/". Where class
 - Dark colour scheme is the default: `<html data-theme="dark">` in both pages.
 - Pages are single-file HTML with inline CSS and JS. No build step. Static files (images, PDFs) live in `site/assets/`. The only external resource allowed is Google Fonts.
 - Print kit: cover pasted onto p. 1; field guide and section dividers are tipped-in extra leaves, so page numbers do not change. Divider page ranges are computed from the `plan` array.
-- The A4 print file is the MD A6 PDF imposed 4-up at 100% scale; order 1-12, then 13 plus copies of 10-12.
+- The A4 print file is the MD A6 PDF imposed 4-up at 100 × 141 mm (95%), so pages fit the notebook without trimming and stay 5 mm clear of the paper edge; order 1-12, then 13 plus copies of 10-12.
 - Any page edit must keep `node --check` passing for the inline script.
 - Page allocation lives in the `plan` array and the `tabs` array. Change both together, in both pages, and update the local ADR in `docs/decisions/` (gitignored, not published).
 - No personal data on public pages.
