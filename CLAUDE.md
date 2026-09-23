@@ -1,4 +1,4 @@
-# fore-edge: conventions
+# polyglot-notebook: conventions
 
 ## Language codes
 
