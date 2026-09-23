@@ -6,7 +6,7 @@
 <title>MD A6 — layout ideas for a multilingual notebook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Figtree:wght@400;600;700&family=Pinyon+Script&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Figtree:wght@400;600;700&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;
@@ -104,8 +104,8 @@ body.t-field .code{ font-family:"Cormorant Garamond", Georgia, serif; font-weigh
 /* header */
 .hero{ display:flex; gap:24px; align-items:flex-start; justify-content:space-between; }
 .hero > div{ flex:1; min-width:0; }
-.hero img{ width:220px; height:170px; object-fit:cover; object-position:50% 62%; border-radius:6px; flex:none; }
-@media (max-width:620px){ .hero{ flex-direction:column-reverse; } .hero img{ width:100%; height:180px; } }
+.hero img{ width:190px; height:auto; border-radius:3px; flex:none; box-shadow:0 10px 18px rgba(0,0,0,.25); }
+@media (max-width:620px){ .hero{ flex-direction:column-reverse; align-items:center; } .hero img{ width:min(240px,70%); } }
 
 /* print kit: fixed to the PDF palette, independent of the style switch */
 .kit{ --kEN:#263f67; --kPL:#bd3f32; --kES:#ba8950; --kEU:#6b8296; --kBE:#5a6c4d; --kLA:#aa6e79; --kNEW:#777777; --kInk:#28231f; --kMuted:#766e61; --kPaper:#f4eedf; }
@@ -117,11 +117,6 @@ body.t-field .code{ font-family:"Cormorant Garamond", Georgia, serif; font-weigh
 .kit-page .kfoot{ position:absolute; left:18px; right:18px; bottom:10px; display:flex; justify-content:space-between; font-size:8px; letter-spacing:.05em; text-transform:uppercase; color:var(--kMuted); border-top:1px solid rgba(118,110,97,.45); padding-top:4px; }
 .kit-cover{ padding:0 !important; text-align:center; }
 .kit-cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.kit-cover > div{ position:relative; }
-.kit-cover .tag{ font-family:"Pinyon Script", cursive; font-size:22px; margin-top:18px; }
-.kit-cover .kn{ font-size:8px; letter-spacing:.12em; color:var(--kMuted); }
-.kit-cover .name{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:30px; margin:6px 0 2px; }
-.kit-cover .codes{ font-size:9px; letter-spacing:.06em; }
 .fg-cols{ display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; }
 .fg-cols p{ margin:0 0 5px; }
 .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:-1px; }
@@ -150,7 +145,7 @@ body.t-field .code{ font-family:"Cormorant Garamond", Georgia, serif; font-weigh
 <p class="note"><a href="ru/">Русская версия</a></p>
   <p class="lead">Page mockups at true A6 proportions (105 × 148 mm), 176 blank pages: English, Polish, Spanish, Basque, Belarusian, a reserve for one more language, and a little Latin. The style switch changes every spread at once, so the styles are easy to compare.</p>
   <p class="note"><a href="#print-kit">Print kit: cover, field guide, section dividers and inserts (PDF)</a></p>
-  </div><img src="assets/cover-birds.jpg" alt="Watercolour birds gathered around an egg: the notebook cover illustration" width="640" height="906"></header>
+  </div><img src="assets/cover.jpg" alt="Notebook cover: Polyglot Notebook, watercolour birds around an egg, each labelled with the word for bird in one of the languages" width="703" height="991"></header>
 
   <div class="switch" role="group" aria-label="Page style">
     <button data-theme-btn="t-okabe" aria-pressed="true">Colour = language</button>
@@ -464,8 +459,7 @@ body.t-field .code{ font-family:"Cormorant Garamond", Georgia, serif; font-weigh
   <div class="grid2 kit">
     <div>
       <div class="page single kit-page kit-cover">
-        <img src="assets/cover-birds.jpg" alt="" width="640" height="906">
-        <div><div class="tag">a little book for many words</div><div class="kn">KOTOBA NO NIWA</div><div class="name">Polyglot Notebook</div><div class="codes">EN · PL · ES · EU · BE · LA · +1</div></div>
+        <img src="assets/cover.jpg" alt="Notebook cover: Polyglot Notebook, watercolour birds around an egg, each labelled with the word for bird in one of the languages" width="703" height="991">
       </div>
       <p class="cap">Cover, pasted onto p. 1.</p>
     </div>

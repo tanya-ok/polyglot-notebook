@@ -1,6 +1,6 @@
 # polyglot-notebook
 
-<img src="site/assets/cover-birds.jpg" alt="Watercolour birds gathered around an egg: the notebook cover illustration" width="320">
+<img src="site/assets/cover.jpg" alt="Notebook cover: Polyglot Notebook, watercolour birds around an egg, each labelled with the word for bird in one of the languages" width="320">
 
 A personal project about learning several languages in one paper notebook: a blank Midori MD A6 with 176 pages. English is the main language, with sections for Polish, Spanish, Basque and Belarusian, a reserve slot for one more language, and a little Latin. Sections are marked with coloured tabs on the fore edge of the notebook.
 
