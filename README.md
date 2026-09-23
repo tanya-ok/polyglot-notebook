@@ -2,6 +2,11 @@
 
 A personal project about learning several languages in one paper notebook: a blank Midori MD A6 with 176 pages. English is the main language, with sections for Polish, Spanish, Basque and Belarusian, a reserve slot for one more language, and a little Latin. Sections are marked with coloured tabs on the fore edge of the notebook.
 
+## Site
+
+- English: https://tanya-ok.github.io/polyglot-notebook/
+- Russian: https://tanya-ok.github.io/polyglot-notebook/ru/
+
 ## What is here
 
 - `site/index.html` - layout ideas page: page allocation bar, colour system, edge-tab map, page mockups, four switchable styles.
