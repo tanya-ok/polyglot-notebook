@@ -44,8 +44,6 @@ Then open http://127.0.0.1:8000/
 | open section | 120-155 | 36 |
 | lists from the back | 156-176 | 21 |
 
-Reasons are recorded in [docs/decisions/0001-notebook-page-allocation.md](docs/decisions/0001-notebook-page-allocation.md).
-
 ## Licence
 
 - Code: MIT, see [LICENSE](LICENSE).

@@ -33,7 +33,7 @@ Every example is written in Cyrillic and łacinka, separated by "/". Where class
 - Dark colour scheme is the default: `<html data-theme="dark">` in both pages.
 - Pages are single-file and self-contained. No build step. The only external resource allowed is Google Fonts.
 - Any page edit must keep `node --check` passing for the inline script.
-- Page allocation lives in the `plan` array and the `tabs` array. Change both together, in both pages, and update `docs/decisions/0001-notebook-page-allocation.md`.
+- Page allocation lives in the `plan` array and the `tabs` array. Change both together, in both pages, and update the local ADR in `docs/decisions/` (gitignored, not published).
 - No personal data on public pages.
 
 ## Commits
