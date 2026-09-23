@@ -6,7 +6,7 @@
 <title>MD A6 — варианты оформления языковой тетради</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Figtree:wght@400;600;700&family=Pinyon+Script&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;
@@ -93,6 +93,54 @@ body.t-stamp .page{ font-family:"Special Elite", "Courier New", monospace; font-
 body.t-stamp .hdr{ border-bottom:3px double #6b4a2b; }
 body.t-stamp .code{ padding:1px 4px; font-size:10px; }
 body.t-func .code{ text-decoration:underline; text-decoration-color:var(--L); text-decoration-thickness:3px; text-underline-offset:2px; }
+body.t-field{ --EN:#263f67; --PL:#bd3f32; --ES:#ba8950; --EU:#6b8296; --BE:#5a6c4d; --LA:#aa6e79; --NEW:#777777; --SUM:#28231f; --paper:#f4eedf; --ink:#28231f;
+  --codeColor:var(--L); --codeBorder:0; --codeRadius:0; --codeRotate:none; --hdrLine:rgba(118,110,97,.45);
+  --endColor:var(--L); --endWeight:600; --exColor:#766e61; --hlBg:transparent; --tblLine:rgba(118,110,97,.25); --tabColor:var(--L); }
+body.t-field .page{ font-family:Figtree, Arial, sans-serif; font-size:11.5px; }
+body.t-field .hdr{ border-bottom-width:1px; }
+body.t-field .hdr .t{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:16px; }
+body.t-field .code{ font-family:"Cormorant Garamond", Georgia, serif; font-weight:500; font-size:1.15em; }
+
+/* header */
+.hero{ display:flex; gap:24px; align-items:flex-start; justify-content:space-between; }
+.hero > div{ flex:1; min-width:0; }
+.hero img{ width:220px; height:170px; object-fit:cover; object-position:50% 62%; border-radius:6px; flex:none; }
+@media (max-width:620px){ .hero{ flex-direction:column-reverse; } .hero img{ width:100%; height:180px; } }
+
+/* print kit: fixed to the PDF palette, independent of the style switch */
+.kit{ --kEN:#263f67; --kPL:#bd3f32; --kES:#ba8950; --kEU:#6b8296; --kBE:#5a6c4d; --kLA:#aa6e79; --kNEW:#777777; --kInk:#28231f; --kMuted:#766e61; --kPaper:#f4eedf; }
+.kit .page.kit-page{ background:var(--kPaper); color:var(--kInk); font-family:Figtree, Arial, sans-serif; font-size:10.5px; line-height:1.35; padding:18px 18px 14px; box-shadow:0 10px 18px rgba(0,0,0,.18); }
+.kit-page .lbl{ font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--kMuted); margin:0 0 4px; }
+.kit-page .ttl{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:26px; line-height:1.1; margin:0 0 4px; }
+.kit-page .sub{ color:var(--kMuted); margin:0 0 10px; }
+.kit-page .ln{ border-bottom:1px solid rgba(118,110,97,.45); color:var(--kMuted); font-size:9px; padding-top:14px; }
+.kit-page .kfoot{ position:absolute; left:18px; right:18px; bottom:10px; display:flex; justify-content:space-between; font-size:8px; letter-spacing:.05em; text-transform:uppercase; color:var(--kMuted); border-top:1px solid rgba(118,110,97,.45); padding-top:4px; }
+.kit-cover{ padding:0 !important; text-align:center; }
+.kit-cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.kit-cover > div{ position:relative; }
+.kit-cover .tag{ font-family:"Pinyon Script", cursive; font-size:22px; margin-top:18px; }
+.kit-cover .kn{ font-size:8px; letter-spacing:.12em; color:var(--kMuted); }
+.kit-cover .name{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:30px; margin:6px 0 2px; }
+.kit-cover .codes{ font-size:9px; letter-spacing:.06em; }
+.fg-cols{ display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; }
+.fg-cols p{ margin:0 0 5px; }
+.dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:-1px; }
+.openers{ display:flex; gap:14px; width:max-content; padding:4px 2px 14px; }
+.opener{ position:relative; width:170px; aspect-ratio:105/148; padding:14px 12px 10px 20px !important; border-left:7px solid var(--c); }
+.opener .big{ font-family:"Cormorant Garamond", Georgia, serif; font-weight:500; font-size:44px; line-height:1; color:var(--c); margin:6px 0 6px; }
+.opener .nm{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:19px; }
+.opener .mt{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-size:12px; margin:2px 0 6px; }
+.opener .lbl{ color:var(--c); }
+.kit-links{ display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 6px; }
+.kit-links a{ color:var(--text); background:var(--desk-2); border:1px solid var(--line); border-radius:6px; padding:8px 14px; text-decoration:none; }
+.kit-links a:hover, .kit-links a:focus-visible{ border-color:var(--text); }
+
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; align-items:start; }
+.cap{ font-size:.9rem; color:var(--muted); text-align:center; margin-top:10px; }
+.swatches{ display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; }
+.sw{ display:flex; align-items:center; gap:8px; font-size:.92rem; }
+.sw i{ width:22px; height:22px; border-radius:4px; display:inline-block; border:1px solid rgba(0,0,0,.15); }
+@media (prefers-reduced-motion: no-preference){ .page{ transition:font-family .2s; } }
 
 .grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; align-items:start; }
 .cap{ font-size:.9rem; color:var(--muted); text-align:center; margin-top:10px; }
@@ -104,15 +152,19 @@ body.t-func .code{ text-decoration:underline; text-decoration-color:var(--L); te
 </head>
 <body class="t-okabe">
 <div class="wrap">
+  <header class="hero"><div>
   <h1>Языковая тетрадь MD A6: варианты оформления</h1>
 <p class="note"><a href="../">English version</a></p>
   <p class="lead">Макеты страниц в натуральной пропорции A6 (105 × 148 мм), 176 страниц: EN, PL, ES, EU, BE, резерв под новый язык и немного латыни. Переключатель стиля меняет оформление всех разворотов сразу — так удобнее сравнить.</p>
+  <p class="note"><a href="#print-kit">Печатный комплект: обложка, field guide, разделители и вкладыши (PDF)</a></p>
+  </div><img src="../assets/cover-birds.jpg" alt="Акварельные птицы вокруг яйца: иллюстрация обложки тетради" width="640" height="906"></header>
 
   <div class="switch" role="group" aria-label="Стиль оформления">
     <button data-theme-btn="t-okabe" aria-pressed="true">Цвет = язык</button>
     <button data-theme-btn="t-minimal" aria-pressed="false">Минимал: только чернила</button>
     <button data-theme-btn="t-func" aria-pressed="false">Цвет = функция</button>
     <button data-theme-btn="t-stamp" aria-pressed="false">Архив и штампы</button>
+    <button data-theme-btn="t-field" aria-pressed="false">Field guide</button>
   </div>
   <p class="theme-desc" id="themeDesc"></p>
 
@@ -407,6 +459,42 @@ body.t-func .code{ text-decoration:underline; text-decoration-color:var(--L); te
       <p class="cap">Одна и та же шапка на всех справочных страницах.</p>
     </div>
   </div>
+
+  <h2 id="print-kit">Печатный комплект: обложка, field guide, разделители, вкладыши</h2>
+  <p class="note">13 страниц точно в размер тетради, 105 × 148 мм. У комплекта своя палитра, переключатель стиля на него не влияет. Стиль «Field guide» переносит эту палитру на страницы тетради выше. Тексты в комплекте на английском.</p>
+  <div class="kit-links">
+    <a href="../assets/polyglot-notebook-md-a6.pdf" download>Страницы MD A6 · PDF · 13 стр. · 2,8 МБ</a>
+    <a href="../assets/polyglot-notebook-md-a6-print-a4.pdf" download>Печать на A4, 4 страницы на листе · PDF · 4 листа · 2,8 МБ</a>
+  </div>
+  <p class="note">Печать: A4, масштаб 100% («Фактический размер»), не «По размеру страницы». Каждый лист режется пополам в обе стороны: на 105 мм и на 148,5 мм. На листе 4 все четыре вкладыша, его можно печатать повторно. Большинство домашних принтеров не печатают 3-5 мм у края листа, поэтому внешние края страниц могут остаться белыми.</p>
+  <p class="note">В тетрадь: обложка наклеивается на стр. 1. Field guide и семь разделителей вклеиваются дополнительными листами, полоской клея 5 мм у корешка: field guide между стр. 1 и 2, каждый разделитель перед первой страницей своего раздела. Нумерация страниц не меняется. Вкладыши остаются отдельными листами, их копируют по мере надобности.</p>
+  <div class="grid2 kit">
+    <div>
+      <div class="page single kit-page kit-cover">
+        <img src="../assets/cover-birds.jpg" alt="" width="640" height="906">
+        <div><div class="tag">a little book for many words</div><div class="kn">KOTOBA NO NIWA</div><div class="name">Polyglot Notebook</div><div class="codes">EN · PL · ES · EU · BE · LA · +1</div></div>
+      </div>
+      <p class="cap">Обложка, наклеивается на стр. 1.</p>
+    </div>
+    <div>
+      <div class="page single kit-page">
+        <p class="lbl">Front matter · 02</p>
+        <p class="ttl">Field guide</p>
+        <p class="sub">One notebook, many ways to say it.</p>
+        <div class="fg-cols">
+          <div><p class="lbl">My languages</p><p>EN · English</p><p>PL · Polski</p><p>ES · Español</p><p>EU · Euskara</p><p>BE · Беларуская</p><p>LA · Latina</p><p>+1 · ________</p></div>
+          <div><p class="lbl">My compass</p><p>Start small.</p><p>Notice patterns.</p><p>Keep the lovely mistakes.</p><p>Return often.</p></div>
+        </div>
+        <p class="lbl" style="margin-top:8px">Colour key</p>
+        <div class="fg-cols" id="kitKey" style="grid-template-columns:repeat(4,1fr)"></div>
+        <div class="kfoot"><span>Made for wandering minds</span><span>MD · A6</span></div>
+      </div>
+      <p class="cap">Field guide, вклеивается между стр. 1 и 2.</p>
+    </div>
+  </div>
+  <div class="spread-box kit"><div class="openers" id="openers"></div></div>
+  <p class="cap">Разделители, вклеиваются перед первой страницей каждого раздела.</p>
+  <div class="grid2 kit" id="inserts"></div>
 </div>
 
 <script>
@@ -414,7 +502,8 @@ const themes = {
   "t-okabe": "Каждому языку свой цвет: код в шапке, линия под ней и окончания. Основной текст чёрный. Проще всего листать по языкам. Нужно 6 цветных ручек; резерв +1 — серым, пока язык не выбран.",
   "t-minimal": "Только чёрная ручка. Язык отличается рамкой вокруг кода и цветным ярлыком на обрезе. Меньше всего визуального шума и нечего подбирать. Разницу между языками видно хуже.",
   "t-func": "Подход Линди Ботес: цвет обозначает функцию, а не язык. Формы и окончания — синие, примеры — розовые, «ещё не выучено» — жёлтый маркер. Язык отмечен цветной чертой под кодом. Хорошо для грамматики, но два цветовых кода одновременно могут перегружать.",
-  "t-stamp": "Сепия и машинописный шрифт: коды как круглые штампы, двойная линия под шапкой. Подходит, если тетрадь — больше хобби и эстетика, чем инструмент. Требует штампов или аккуратного обвода; медленнее в заполнении."
+  "t-stamp": "Сепия и машинописный шрифт: коды как круглые штампы, двойная линия под шапкой. Подходит, если тетрадь — больше хобби и эстетика, чем инструмент. Требует штампов или аккуратного обвода; медленнее в заполнении.",
+  "t-field": "Стиль печатного комплекта: тёплая бумага, приглушённые цвета языков, курсивные заголовки с засечками и простой текст без засечек. Спокойно и по-книжному. Приглушённые цвета ближе друг к другу, чем Okabe-Ito, поэтому языки различаются с первого взгляда чуть хуже."
 };
 function setTheme(t){
   document.body.className = t;
@@ -426,7 +515,7 @@ document.querySelectorAll("[data-theme-btn]").forEach(b=>b.addEventListener("cli
 
 const C = {EN:"#0072B2",PL:"#D55E00",ES:"#E69F00",EU:"#56B4E9",BE:"#009E73",NEW:"#9aa3a9",LA:"#CC79A7",S:"#5b6770",G:"#3f4a52",K:"#b08d57",R:"#c9ced2"};
 const plan = [
-  ["служебные: титул, индекс, легенда, ярлыки",7,C.S],
+  ["служебные: обложка, индекс, легенда, ярлыки",7,C.S],
   ["EN — основной",30,C.EN],
   ["PL",15,C.PL],
   ["ES",15,C.ES],
@@ -467,6 +556,39 @@ tabs.forEach(([code,lang,name,pages,mm])=>{
   const t=document.createElement("div"); t.className="tab"; t.dataset.lang=lang;
   t.style.top=(mm/148*100)+"%"; t.style.height=(12/148*100)+"%"; tb.appendChild(t);
 });
+
+const K={EN:"var(--kEN)",PL:"var(--kPL)",ES:"var(--kES)",EU:"var(--kEU)",BE:"var(--kBE)",NEW:"var(--kNEW)",LA:"var(--kLA)"};
+const openers=[
+  ["EN","EN","English","The language I sometimes dream in.","","things I want to remember · phrases that sound like me"],
+  ["PL","PL","Polski","Małe kroki, dobre słowa.","","przypadki i przyimki · zwroty na co dzień"],
+  ["ES","ES","Español","Palabras para llevar conmigo.","","verbos y giros · frases que quiero usar"],
+  ["EU","EU","Euskara","Pixkanaka, hitzez hitz.","","hitz berriak · esaldi erabilgarriak"],
+  ["BE","BE","Беларуская","Voli, voli i prastoru! Preč hranicy!","Jakub Kołas · Symon-muzyka","кірыліца / лацінка · словы і звароты"],
+  ["NEW","+1","New language","A space for a future curiosity.","","the language · why I want to learn it"],
+  ["LA","LA","Latina","Ad legendum, ad gaudium.","","words worth keeping · fragments from reading"]
+];
+const ranges=[]; plan.reduce((start,[, n])=>{ ranges.push([start,start+n-1]); return start+n; },1);
+const ob=document.getElementById("openers");
+openers.forEach(([lang,code,name,motto,src,forWhat],i)=>{
+  const [a,b]=ranges[i+1];
+  const d=document.createElement("div"); d.className="page kit-page opener"; d.style.setProperty("--c",K[lang]);
+  d.innerHTML=`<p class="lbl">0${i+1} · pages ${a}-${b}</p><div class="big">${code}</div><div class="nm">${name}</div><div class="mt">${motto}</div>`+
+    (src?`<p class="lbl" style="color:var(--kMuted);text-transform:none;letter-spacing:0">${src}</p>`:"")+
+    `<p class="lbl" style="color:var(--kMuted);margin-top:8px">This section is for</p><p style="margin:0">${forWhat}</p>`+
+    `<div class="kfoot"><span>Language atlas</span><span>0${i+1} / 07</span></div>`;
+  ob.appendChild(d);
+});
+document.getElementById("kitKey").innerHTML=[0,1,2,3,4,6,5].map(i=>openers[i]).map(([lang,code])=>`<p style="color:${K[lang]}"><i class="dot" style="background:${K[lang]}"></i>${code}</p>`).join("");
+const inserts=[
+  ["Loose insert · copy as needed","Word garden","Collect a word, then give it somewhere to grow.",["Word · meaning / translation · example","","","","","","",""],["Language: ______","Page: ___"]],
+  ["Loose insert · copy as needed","Phrasebook","Words to take into the world.",["Situation / intent","Phrase","Literal meaning","A more natural version","Pronunciation / notes","My example"],["Language: ______","Page: ___"]],
+  ["Weekly ritual · 10 minutes","Small review","Date ______ · Language ______",["A word I met this week","A phrase I can use now","Something that surprised me","Practised: □ read □ write □ speak □ listen","One thing I want to remember",""],["Keep it playful.","Week ___"]],
+  ["Mistakes are data","Error garden","Notice it. Understand it. Try again.",["What I said / wrote","What I meant","A more natural version","Why I think I made this mistake","One new example","Review again on"],["Language: ______",""]]
+];
+document.getElementById("inserts").innerHTML=inserts.map(([lbl,ttl,sub,fields,[fl,fr]])=>
+  `<div><div class="page single kit-page"><p class="lbl">${lbl}</p><p class="ttl">${ttl}</p><p class="sub">${sub}</p>`+
+  fields.map(f=>`<div class="ln">${f||"&nbsp;"}</div>`).join("")+
+  `<div class="kfoot"><span>${fl}</span><span>${fr}</span></div></div><p class="cap">${ttl}: вкладыш.</p></div>`).join("");
 
 let saved="t-okabe"; try{ saved=localStorage.getItem("mdTheme")||saved; }catch(e){}
 setTheme(themes[saved]?saved:"t-okabe"); setStrat();

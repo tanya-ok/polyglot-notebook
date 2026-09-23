@@ -1,5 +1,7 @@
 # polyglot-notebook
 
+<img src="site/assets/cover-birds.jpg" alt="Watercolour birds gathered around an egg: the notebook cover illustration" width="320">
+
 A personal project about learning several languages in one paper notebook: a blank Midori MD A6 with 176 pages. English is the main language, with sections for Polish, Spanish, Basque and Belarusian, a reserve slot for one more language, and a little Latin. Sections are marked with coloured tabs on the fore edge of the notebook.
 
 ## Site
@@ -9,8 +11,10 @@ A personal project about learning several languages in one paper notebook: a bla
 
 ## What is here
 
-- `site/index.html` - layout ideas page: page allocation bar, colour system, edge-tab map, page mockups, four switchable styles.
+- `site/index.html` - layout ideas page: page allocation bar, colour system, edge-tab map, page mockups, five switchable styles, print kit previews.
 - `site/ru/index.html` - the same page in Russian.
+- `site/assets/polyglot-notebook-md-a6.pdf` - print kit, 13 pages at 105 × 148 mm: cover, field guide, seven section dividers, four inserts (Word garden, Phrasebook, Small review, Error garden).
+- `site/assets/polyglot-notebook-md-a6-print-a4.pdf` - the same pages 4-up on A4 at 100% scale; sheet 4 is a refill sheet with all four inserts.
 - `content/ru/notebook-starter-content.md` - starter content per language (tables, rules, constructions, phrases), keyed to notebook page numbers. In Russian.
 
 ## Run locally
@@ -52,4 +56,5 @@ Then open http://127.0.0.1:8000/
 ## Licence
 
 - Code: MIT, see [LICENSE](LICENSE).
-- Page content (texts, layouts, starter content): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Page content (texts, layouts, starter content, print kit, illustration): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Fonts embedded in the PDFs stay under their owners' licences.
